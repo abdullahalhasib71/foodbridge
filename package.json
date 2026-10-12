@@ -1,0 +1,36 @@
+{
+  "name": "foodbridge-module1",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FoodBridge Module 1: User, Verification and Donation Management (MERN)",
+  "type": "module",
+  "engines": { "node": ">=20.6" },
+  "scripts": {
+    "setup": "npm install && npm --prefix client install",
+    "dev": "concurrently -k -n api,web -c green,yellow \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "node --watch --env-file=.env server/index.js",
+    "dev:web": "npm --prefix client run dev",
+    "start": "node --env-file=.env server/index.js",
+    "build": "npm --prefix client run build",
+    "seed": "node --env-file=.env server/scripts/seed.js",
+    "create-admin": "node --env-file=.env server/scripts/create-admin.js",
+    "test": "node --test --test-concurrency=1 server/tests/*.test.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "multer": "^2.0.2",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.10.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "supertest": "^7.0.0"
+  }
+}
