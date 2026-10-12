@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Hind Siliguri", system-ui, sans-serif;
+  --font-display: "Anek Bangla", "Hind Siliguri", system-ui, sans-serif;
+
+  /* Soft palette: mint-white paper, jade primary, pastel marigold and coral for freshness */
+  --color-paper: #f4f8f5;
+  --color-surface: #ffffff;
+  --color-ink: #23362f;
+  --color-muted: #647369;
+  --color-line: #e2eae4;
+  --color-leaf: #357f65;
+  --color-leaf-dark: #2a6b54;
+  --color-leaf-soft: #e6f2ec;
+  --color-haldi: #f2b95c;
+  --color-haldi-dark: #8a5a12;
+  --color-haldi-soft: #fdf3e1;
+  --color-chili: #e58a7e;
+  --color-chili-dark: #b04a3f;
+  --color-chili-soft: #fcebe8;
+  --color-sky: #8db8d6;
+  --color-sky-soft: #e8f1f8;
+  --color-teal: #0e7490;
+  --color-brand: #16795c;
+
+  /* Food category hues: fill / soft background / readable text */
+  --color-saffron: #f08a4b;   --color-saffron-soft: #ffe9db;   --color-saffron-dark: #8a4b12;
+  --color-turmeric: #f4b740;  --color-turmeric-soft: #fff4d6;  --color-turmeric-dark: #7a5a00;
+  --color-caramel: #d9a066;   --color-caramel-soft: #f8eedf;   --color-caramel-dark: #7a5230;
+  --color-rose: #ec6f9a;      --color-rose-soft: #fde6ef;      --color-rose-dark: #8c3a5e;
+  --color-lime: #7dbe4c;      --color-lime-soft: #edf7e3;      --color-lime-dark: #3d6b1e;
+  --color-ocean: #4fa3d9;     --color-ocean-soft: #e3f1fa;     --color-ocean-dark: #1f5f86;
+  --color-lilac: #8c7ae6;     --color-lilac-soft: #eeebfc;     --color-lilac-dark: #4b3ba8;
+
+  /* Deep hues for white text on colour (all at least 4.5:1) */
+  --color-ember: #c2410c; --color-berry: #b4235a; --color-indigo: #5b4bc4; --color-amber: #b45309; --color-sea: #0369a1;
+
+  --shadow-glow: 0 14px 30px -12px rgb(22 121 92 / 0.55);
+
+  --shadow-soft: 0 12px 32px -16px rgb(35 54 47 / 0.22);
+  --shadow-lift: 0 20px 48px -20px rgb(35 54 47 / 0.28);
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-paper text-ink font-sans antialiased; font-size: 16px; line-height: 1.6; }
+  h1, h2, h3, h4 { @apply font-display tracking-tight; line-height: 1.15; }
+  :focus-visible { outline: 3px solid var(--color-haldi); outline-offset: 2px; border-radius: 6px; }
+  ::selection { background: var(--color-haldi-soft); }
+}
+
+/* Reusable component styles (Tailwind v4 custom utilities) */
+@utility wrap { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 font-medium
+    transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-gradient-to-r from-brand to-teal text-white shadow-glow hover:brightness-110;
+}
+@utility btn-secondary { @apply btn border border-line bg-surface text-ink hover:border-leaf/40 hover:bg-leaf-soft/40; }
+@utility btn-ghost { @apply btn px-3 text-muted hover:text-ink; }
+@utility btn-danger { @apply btn border border-chili/50 text-chili-dark hover:bg-chili-soft; }
+
+@utility label { @apply mb-1.5 block text-sm font-medium; }
+@utility input {
+  @apply block w-full rounded-2xl border border-line bg-surface px-3.5 py-2.5 text-ink
+    placeholder:text-muted/60 focus:border-leaf/60 focus:outline-none focus:ring-4 focus:ring-leaf/10;
+}
+@utility hint { @apply mt-1 text-sm text-muted; }
+@utility error { @apply mt-1 text-sm text-chili-dark; }
+
+@utility panel { @apply rounded-3xl border border-line/70 bg-surface shadow-soft; }
+@utility page-title { @apply font-display text-3xl font-bold sm:text-4xl; }
+
+@utility mesh {
+  background:
+    radial-gradient(40rem 28rem at 85% 10%, #d8f0e6 0%, transparent 60%),
+    radial-gradient(30rem 24rem at 60% 85%, #eeebfc 0%, transparent 60%),
+    radial-gradient(28rem 22rem at 5% 30%, #ffe9db 0%, transparent 60%),
+    radial-gradient(26rem 20rem at 35% 0%, #e3f1fa 0%, transparent 60%),
+    var(--color-paper);
+}
+@utility glass { @apply border border-white/70 bg-white/75 backdrop-blur-xl; }
+
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@utility rise { animation: rise 0.6s cubic-bezier(.2,.7,.2,1) both; }
+
+/* Leaflet sits above page content otherwise */
+.leaflet-container { font-family: var(--font-sans); z-index: 0; }
+.leaflet-popup-content { margin: 10px 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+@media print {
+  header, footer, .no-print { display: none !important; }
+  body { background: white; }
+}
